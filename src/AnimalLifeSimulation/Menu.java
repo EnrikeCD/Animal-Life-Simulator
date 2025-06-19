@@ -1,9 +1,16 @@
+package AnimalLifeSimulation;
+
 import java.util.Scanner;
 
 public class Menu implements Runnable{
+    private static final Menu INSTANCE = new Menu();
     private final Scanner scanner = new Scanner(System.in);
     private volatile boolean running = true; //bandera para detener la simulación
     private Island island;
+
+    private Menu(){}
+
+    public static Menu getInstance(){return INSTANCE;}
 
     @Override
     public void run() {
@@ -13,7 +20,7 @@ public class Menu implements Runnable{
             scanner.nextLine(); // Limpiar buffer
             manejarOpcion(opcion);
         }
-        System.out.println("Menu detenido.");
+        System.out.println("AnimalLifeSimulation.Menu detenido.");
     }
 
     private void mostrarMenu() {

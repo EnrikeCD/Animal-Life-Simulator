@@ -1,29 +1,29 @@
-import java.sql.Array;
-import java.util.Random;
+package AnimalLifeSimulation;
 
 public class Island {
     private int x;
     private int y;
-    private Location[][] populateLocation;
+    private Location[][] location;
+    private PopulationManager populateAnimal = new PopulationManager();
 
     public Island(int x, int y){
         this.x = x;
         this.y = y;
-        populateLocation = new Location[this.x][this.y];
+        location = new Location[this.x][this.y];
         inicializeLocation();
 
     }
     public Island(){
         this.x = 100;
         this.y = 20;
-        populateLocation = new Location[this.x][this.y];
+        location = new Location[this.x][this.y];
         inicializeLocation();
     }
 
     public void inicializeLocation(){
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                populateLocation[i][j] = new Location(i,j);
+                location[i][j] = new Location(i,j);
             }
         }
     }
@@ -31,15 +31,14 @@ public class Island {
     public void showLocations(){
         for(int i = 0 ; i < x ; i++){
             for (int j = 0; j < y; j++) {
-                populateLocation[i][j].showAllLocation();
-                //populateLocation[i][j].showPlants();
+                location[i][j].showAllLocation();
             }
             System.out.println();
         }
     }
 
     public Location getLocation(int x, int y){
-        return populateLocation[x][y];
+        return location[x][y];
     }
 
     public void printGeneralState() {
@@ -54,10 +53,16 @@ public class Island {
         }
 
         System.out.println("Detalles de la ubicación [" + fila + "][" + columna + "]:");
-        populateLocation[fila][columna].showAllLocation();
+        location[fila][columna].showEspecificLocation();
     }
 
-    public void startSimulation(){}
+    public void startSimulation(){
+        for(int i = 0 ; i < x ; i++) {
+            for (int j = 0; j < y; j++) {
+                populateAnimal.populate(getLocation(i,j));
+            }
+        }
+    }
 
     public void stopSimulation(){}
 }
